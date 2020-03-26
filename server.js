@@ -4,13 +4,14 @@ const passport = require("passport");
 const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
+const connectMongoDB = require("./config/mongo/mongoDB");
 
 // const googleAuth = require("./config/google/google-config");
 
 require("dotenv").config();
-
-app.use(passport.initialize());
-require("./lib/Passport")(passport);
+connectMongoDB;
+// app.use(passport.initialize());
+// require("./lib/Passport")(passport);
 
 app.disable("x-powered-by");
 app.use(cors({ origin: "http://localhost:3000", credentials: false }));

@@ -21,5 +21,21 @@
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0"
-  }
+  },
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nani-koitsu/subscriptions-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nani-koitsu/subscriptions-backend/issues"
+  },
+  "homepage": "https://github.com/nani-koitsu/subscriptions-backend#readme"
 }
