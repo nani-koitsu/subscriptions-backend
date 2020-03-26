@@ -8,8 +8,9 @@ router.get(
   subscriptionController.getAllUserSubscriptions
 );
 router.post(
-  "/create-subscriptions",
-  passport.authenticate("jwt", { session: false })
+  "/create-subscription",
+  passport.authenticate("jwt", { session: false }),
+  subscriptionController.addSubscription
 );
 router.get(
   "/get-subscription-id/:id",
@@ -17,7 +18,7 @@ router.get(
   subscriptionController.getSubscriptionByID
 );
 router.get(
-  "/get-all-usersubscriptions/:id",
+  "/get-all-user-subscriptions/:id",
   passport.authenticate("jwt", { session: false })
 );
 router.delete(
@@ -25,3 +26,5 @@ router.delete(
   passport.authenticate("jwt", { session: false }),
   subscriptionController.deleteByID
 );
+
+module.exports = router;
