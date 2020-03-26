@@ -4,6 +4,8 @@ const passport = require("passport");
 const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
+const connectMongoDB = require("./config/mongo/mongoDB");
+const googleAuth = require("./config/google/google-config");
 
 // const googleAuth = require("./config/google/google-config");
 
