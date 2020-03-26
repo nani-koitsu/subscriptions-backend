@@ -7,7 +7,10 @@ router.get(
   "/get-all-subscriptions",
   subscriptionController.getAllUserSubscriptions
 );
-router.post("/create-talk", passport.authenticate("jwt", { session: false }));
+router.post(
+  "/create-subscriptions",
+  passport.authenticate("jwt", { session: false })
+);
 router.get(
   "/get-subscription-id/:id",
   passport.authenticate("jwt", { session: false }),
