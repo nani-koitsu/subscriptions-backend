@@ -3,8 +3,9 @@ const Subscription = require("../models/Subscription");
 
 module.exports = {
   addSubscription: async (req, res) => {
+
     try {
-      let foundUser = await User.findById(req.body.id);
+      let foundUser = await User.findById(req.body.submitedBy);
       let newSubscription = await new Subscription({
         subscriptionType: req.body.subscriptionType,
         subscriptionName: req.body.subscriptionName,
@@ -15,6 +16,7 @@ module.exports = {
       });
       let savedSubscription = await newSubscription.save();
       console.log("saved sub", savedSubscription);
+
       await foundUser.subscriptions.push(savedSubscription);
       await foundUser.save();
       res.status(200).json(savedSubscription);
