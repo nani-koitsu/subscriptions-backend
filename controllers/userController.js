@@ -7,7 +7,6 @@ module.exports = {
       let hashedPassword = await authHelper.hashPassword(newUser.password);
       newUser.password = hashedPassword;
       let savedUser = await newUser.save();
-
       console.log(savedUser);
 
       res.status(200).json({

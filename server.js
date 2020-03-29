@@ -4,17 +4,17 @@ const passport = require("passport");
 const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
-const connectMongoDB = require("./config/mongo/mongoDB");
 
-const googleAuth = require("./config/google/google-config");
-
+require("./config/mongo/mongoDB");
+require("./config/google/google-config");
 require("dotenv").config();
-connectMongoDB;
-// app.use(passport.initialize());
-// require("./lib/Passport")(passport);
 
+const userJWTstrategy = require("./lib/Passport");
+
+app.use(passport.initialize());
+passport.use("jwt", userJWTstrategy);
 app.disable("x-powered-by");
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: false }));
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use("/", require("./routes/index"));
 app.use("/auth", require("./routes/auth"));
 app.use("/users", require("./routes/users"));
-app.use("/subscriptions", require("./routes/subscription"));
+app.use("/subscription", require("./routes/subscription"));
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

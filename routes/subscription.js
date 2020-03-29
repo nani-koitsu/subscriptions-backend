@@ -7,11 +7,7 @@ router.get(
   "/get-all-subscriptions",
   subscriptionController.getAllUserSubscriptions
 );
-router.post(
-  "/create-subscription",
-  passport.authenticate("jwt", { session: false }),
-  subscriptionController.addSubscription
-);
+router.post("/create-subscription", subscriptionController.addSubscription);
 router.get(
   "/get-subscription-id/:id",
   passport.authenticate("jwt", { session: false }),
