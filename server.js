@@ -8,10 +8,10 @@ const morgan = require("morgan");
 require("./config/mongo/mongoDB");
 require("./config/google/google-config");
 require("dotenv").config();
-connectMongoDB;
+// connectDB;
 
 app.use(passport.initialize());
-require("./lib/Passport")(passport);
+// require("./lib/Passport")(passport);
 
 const userJWTstrategy = require("./lib/Passport");
 
