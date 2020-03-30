@@ -9,9 +9,14 @@ async function hashPassword(password) {
 }
 
 async function createUser(user) {
+  let { email, firstName, lastName, password, googleID, subscriptions } = user;
   let newUser = await new User({
-    email: user.email,
-    password: user.password
+    email,
+    firstName,
+    lastName,
+    password,
+    googleID,
+    subscriptions
   });
   return newUser;
 }

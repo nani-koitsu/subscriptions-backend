@@ -4,27 +4,14 @@ const passport = require("passport");
 const subscriptionController = require("../controllers/subscriptionController");
 
 router.get(
-  "/get-all-subscriptions",
+  "/get-all-user-subscriptions/:id",
   subscriptionController.getAllUserSubscriptions
-);
-router.post(
-  "/create-subscription",
-  passport.authenticate("jwt", { session: false }),
-  subscriptionController.addSubscription
 );
 router.get(
   "/get-subscription-id/:id",
-  passport.authenticate("jwt", { session: false }),
   subscriptionController.getSubscriptionByID
 );
-router.get(
-  "/get-all-user-subscriptions/:id",
-  passport.authenticate("jwt", { session: false })
-);
-router.delete(
-  "/delete-by-id/:id",
-  passport.authenticate("jwt", { session: false }),
-  subscriptionController.deleteByID
-);
+router.delete("/delete-by-id/:id", subscriptionController.deleteByID);
+router.post("/create-subscription", subscriptionController.addSubscription);
 
 module.exports = router;
