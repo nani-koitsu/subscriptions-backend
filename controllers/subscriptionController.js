@@ -5,7 +5,7 @@ module.exports = {
   addSubscription: async (req, res) => {
     console.log(req.body)
     try {
-      let foundUser = await User.findById(req.body.submitedBy);
+      let foundUser = await User.findById(req.body.submittedBy);
       let newSubscription = await new Subscription({
         subscriptionType: req.body.subscriptionType,
         subscriptionName: req.body.subscriptionName,
