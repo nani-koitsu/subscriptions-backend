@@ -69,6 +69,22 @@ async function comparePassword(incomingPassword, userPassword) {
   }
 }
 
+async function createGoogleUserJwtToken(user, cloudinaryImageUrl) {
+  let payload = {
+    firstName: user.given_name,
+    lastName: user.family_name,
+    googleID: user.sub,
+    email: user.email,
+    picture: user.picture,
+    googleVerified: user.email_verified,
+    locale: user.locale
+  };
+
+  let jwtToken = await jwt.sign(payload, process.env.SECRET_KEY, {
+    expiresIn: 3600
+  });
+  return jwtToken;
+}
 module.exports = {
   hashPassword,
   createUser,

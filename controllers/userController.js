@@ -43,5 +43,13 @@ module.exports = {
         message: error
       });
     }
+  },
+  googleUserLogin: async (req, res) => {
+    try {
+      // let jwtToken = await
+    } catch (error) {
+      console.log(error);
+      res.status(500).json(error);
+    }
   }
 };

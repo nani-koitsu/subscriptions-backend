@@ -11,21 +11,18 @@ passport.use(
       callbackURL: "/auth/google/redirect"
     },
     (accessToken, refreshToken, profile, done) => {
-      const user = profile._json;
-      console.log("GIMMMMMMEEEEEE", user);
-      new User({
-        firstName: user.given_name,
-        lastName: user.family_name,
-        googleID: user.sub,
-        email: user.email,
-        googleVerified: user.email_verified,
-        locale: user.locale
-      })
-        .save()
-        .then(newUser => {
-          console.log("new user created :", newUser);
-          process.nextTick(() => done(null, profile));
-        });
+      process.nextTick(() => done(null, profile));
     }
   )
 );
+//  const user = profile._json;
+//  console.log("GIMMMMMMEEEEEE", user);
+//  new User({
+//    firstName: user.given_name,
+//    lastName: user.family_name,
+//    googleID: user.sub,
+//    email: user.email,
+//    picture: user.picture,
+//    googleVerified: user.email_verified,
+//    locale: user.locale
+//  });

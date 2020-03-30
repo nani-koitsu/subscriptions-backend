@@ -8,6 +8,8 @@ const UserSchema = new Schema({
   lastName: { type: String, unique: true, default: "" },
   password: { type: String, default: "", required: true },
   googleID: { type: String, unique: true, default: "" },
+  googleVerified: { type: Boolean, default: false },
+  pictureName: { type: String, trim: true, default: "" },
   subscriptions: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Subscription", default: "" }
   ],

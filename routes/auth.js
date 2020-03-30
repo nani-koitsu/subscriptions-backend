@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const passport = require("passport");
+const userController = require("../controllers/userController");
 
 /* GET users listing. */
 router.get("/", function(req, res, next) {
