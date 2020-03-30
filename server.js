@@ -10,8 +10,9 @@ const googleAuth = require("./config/google/google-config");
 
 require("dotenv").config();
 connectMongoDB;
-// app.use(passport.initialize());
-// require("./lib/Passport")(passport);
+
+app.use(passport.initialize());
+require("./lib/Passport")(passport);
 
 app.disable("x-powered-by");
 app.use(cors());

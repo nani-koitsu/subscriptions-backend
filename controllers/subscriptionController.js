@@ -3,20 +3,21 @@ const Subscription = require("../models/Subscription");
 
 module.exports = {
   addSubscription: async (req, res) => {
+    console.log(req.body)
     try {
-      let foundUser = await User.findById(id);
+      let foundUser = await User.findById(req.user._id);
       let newSubscription = await new Subscription({
         subscriptionName: req.body.subscriptionName,
         subscriptionType: req.body.subscriptionType,
         price: req.body.price,
         subscriptionType: req.body.subscriptionType,
-        dueDate: req.body.dueDate,
-        createdBy: req.body.user.id
+        dueDate: req.body.startDate,
+        createdBy: req.user._id
       });
       let savedSubscription = await newSubscription.save();
       await foundUser.subscriptions.push(savedSubscription);
       await foundUser.save();
-      res.status(200).json(savedNewTalk);
+      res.status(200).json(savedSubscription);
     } catch (error) {
       console.log(error);
       res.status(500).json(error);
