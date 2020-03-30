@@ -3,7 +3,6 @@ const Subscription = require("../models/Subscription");
 
 module.exports = {
   addSubscription: async (req, res) => {
-
     try {
       let foundUser = await User.findById(req.body.submitedBy);
       let newSubscription = await new Subscription({
@@ -50,9 +49,10 @@ module.exports = {
   getAllUserSubscriptions: async (req, res) => {
     const id = req.params.id;
     try {
-      let allUserSubscriptions = await User.findByID({ submittedBy: id })
+      let allUserSubscriptions = await User.findById({ _id: id })
         .populate("subscriptions")
         .exec();
+      console.log(allUserSubscriptions.subscriptions);
       res.status(200).json(allUserSubscriptions.subscriptions);
     } catch (error) {
       console.log(error);
