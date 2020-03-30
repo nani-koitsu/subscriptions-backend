@@ -15,7 +15,6 @@ async function createUser(user) {
     firstName,
     lastName,
     password,
-    googleID,
     subscriptions
   });
   return newUser;
@@ -69,11 +68,11 @@ async function comparePassword(incomingPassword, userPassword) {
   }
 }
 
-async function createGoogleUserJwtToken(user, cloudinaryImageUrl) {
+async function createGoogleUserJwtToken(user) {
   let payload = {
     firstName: user.given_name,
     lastName: user.family_name,
-    googleID: user.sub,
+    password: user.sub,
     email: user.email,
     picture: user.picture,
     googleVerified: user.email_verified,
@@ -91,5 +90,6 @@ module.exports = {
   errorHandler,
   findOneUser,
   createJwtToken,
-  comparePassword
+  comparePassword,
+  createGoogleUserJwtToken
 };

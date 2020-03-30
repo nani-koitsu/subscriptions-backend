@@ -2,6 +2,7 @@ const GoogleStrategy = require("passport-google-oauth20");
 const passport = require("passport");
 const User = require("../../models/User");
 require("dotenv").config();
+const mongoose = require("mongoose");
 
 passport.use(
   new GoogleStrategy(
@@ -11,7 +12,9 @@ passport.use(
       callbackURL: "/auth/google/redirect"
     },
     (accessToken, refreshToken, profile, done) => {
-      process.nextTick(() => done(null, profile));
+      const user = profile._json;
+      // console.log(user);
+      process.nextTick(() => done(null, user));
     }
   )
 );
