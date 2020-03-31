@@ -18,6 +18,7 @@ module.exports = {
       res.status(200).send("notification has been sent");
     } catch (error) {
       console.log(error);
+      res.status(500).send("notification failed to deliver");
     }
   }
 };
