@@ -8,11 +8,7 @@ const morgan = require("morgan");
 require("./config/mongo/mongoDB");
 require("./config/google/google-config");
 require("dotenv").config();
-<<<<<<< HEAD
-// connectMongoDB();
-=======
 // connectDB;
->>>>>>> 64280ad18af3f1001299679f4e9753c103d84d10
 
 app.use(passport.initialize());
 // require("./lib/Passport")(passport);
