@@ -3,7 +3,7 @@ const Subscription = require("../models/Subscription");
 
 module.exports = {
   addSubscription: async (req, res) => {
-    console.log(req.body)
+    console.log(req.body);
     try {
       let foundUser = await User.findById(req.body.submittedBy);
       let newSubscription = await new Subscription({

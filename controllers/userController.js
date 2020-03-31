@@ -1,5 +1,7 @@
 const authHelper = require("../utils/authHelper");
-
+const url = require("url");
+const axios = require("axios");
+require("dotenv").config();
 module.exports = {
   signup: async (req, res) => {
     try {
@@ -44,12 +46,29 @@ module.exports = {
       });
     }
   },
+  googleUserSignup: async (req, res) => {
+    try {
+      let newUser = await authHelper.createUser(req.body);
+    } catch (e) {
+      console.log(e);
+    }
+  },
   googleUserLogin: async (req, res) => {
     try {
-      // let jwtToken = await
+      let jwtToken = await authHelper.createGoogleUserJwtToken(req.user);
+      res.redirect(
+        url.format({
+          pathname: "http://localhost:3000/auth/google/redirect",
+          query: {
+            token: jwtToken
+          }
+        })
+      );
     } catch (error) {
       console.log(error);
-      res.status(500).json(error);
+      res.status(500).json({
+        message: error
+      });
     }
   }
 };

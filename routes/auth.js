@@ -9,13 +9,22 @@ router.get("/", function(req, res, next) {
 
 router.get(
   "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate(
+    "google",
+    { scope: ["profile", "email"] },
+    userController.googleUserLogin
+  )
 );
 
 // callback route for google to redirect
-router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
-  res.send("hello");
-});
+router.get(
+  "/google/redirect",
+  passport.authenticate("google", { failureRedirect: "http://localhost:3000" }),
+  (req, res) => {
+    console.log(res);
+    res.send("hello");
+  }
+);
 // router.get(
 //   "/auth/google/callback",
 //   passport.authenticate("google", {
