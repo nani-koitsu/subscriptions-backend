@@ -11,8 +11,8 @@ module.exports = {
         subscriptionName: req.body.subscriptionName,
         price: req.body.price,
         image: req.body.image,
-        startDate: req.body.dueDate,
-        submittedBy: req.body.id
+        startDate: req.body.startDate,
+        submittedBy: req.body.submittedBy
       });
       let savedSubscription = await newSubscription.save();
       console.log("saved sub", savedSubscription);
