@@ -9,26 +9,31 @@ cloudinary.config({
 
 module.exports = {
   fetchAllImages: async (req, res) => {
+    let cloudObj = {};
     try {
-      await cloudinary.v2.api.resources(
-        { type: "upload", max_results: 500, prefix: "logos" },
-        (error, result) => {
-          result = Object.entries(result.resources);
-          // console.log(result);
+      await cloudinary.v2.api
+        .resources(
+          { type: "upload", max_results: 500, prefix: "logos" },
+          (error, result) => {
+            result = Object.entries(result.resources);
 
-          let cloudArr = [];
-          let cloudObj = {};
-          result.forEach(([key, value]) => {
-            let secureUrl = value.secure_url;
-            let name = secureUrl.match(/(?<=logos\/)(.*)(?=.png)/gi).toString();
-            cloudObj[name] = secureUrl;
-          });
+            result.forEach(([key, value]) => {
+              let secureUrl = value.secure_url;
 
-          res.status(200).send(cloudObj);
-        }
-      );
+              let name = secureUrl
+                .match(/(?<=logos\/)(.*)(?=.png)/gi)
+                .toString();
+
+              cloudObj[name] = secureUrl;
+            });
+          }
+        )
+        .then(() => console.log(`success`));
+      console.log("new object", cloudObj);
+      res.status(200).send(cloudObj);
     } catch (error) {
       console.log(error);
+
       res.status(500).send("Image server not responding");
     }
   }

@@ -6,24 +6,23 @@ const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
 
+/* Configurations & Environment Variables */
 require("./config/mongo/mongoDB");
 require("./config/google/google-config");
 require("dotenv").config();
 
-app.use(passport.initialize());
-
+/* Passport */
 passport.serializeUser((user, cb) => {
-    cb(null, user);
+  cb(null, user);
 });
-
 passport.deserializeUser((user, cb) => {
-    cb(null, user);
+  cb(null, user);
 });
-
 const userJWTstrategy = require("./lib/Passport");
-
-app.use(passport.initialize());
 passport.use("jwt", userJWTstrategy);
+
+/* Server Configuration */
+app.use(passport.initialize());
 app.disable("x-powered-by");
 app.use(cors({ origin: "http://localhost:3000", credentials: false }));
 app.use(morgan("dev"));
@@ -31,25 +30,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
+/* Routes */
 app.use("/", require("./routes/index"));
 app.use("/auth", require("./routes/auth"));
 app.use("/users", require("./routes/users"));
-app.use("/subscription", require("./routes/subscription"));
 app.use("/twilio", require("./routes/twilio"));
+app.use("/cloudinary", require("./routes/cloudinary"));
+app.use("/subscription", require("./routes/subscription"));
 
-// app.post("/sms", (req, res) => {
-//   const twiml = new MessagingResponse();
-
-//   twiml.message("The Robots are coming! Head for the hills!");
-
-//   res.writeHead(200, { "Content-Type": "text/xml" });
-//   res.end(twiml.toString());
-// });
-
+/* App Server */
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+/* Twilio Server for incoming messages */
 http.createServer(app).listen(1337, () => {
-    console.log("Express server listening on port 1337");
+  console.log("Express server listening on port 1337");
 });
 
 module.exports = app;
