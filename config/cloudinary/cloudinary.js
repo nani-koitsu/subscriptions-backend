@@ -1,4 +1,3 @@
-const Axios = require("axios");
 const cloudinary = require("cloudinary");
 require("dotenv").config();
 // CLOUDINARY CREDENTIALS
@@ -8,20 +7,22 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-cloudinary.v2.api.resources(
-  { type: "upload", max_results: 500, prefix: "logos" },
-  (error, result) => {
-    result = Object.entries(result.resources);
-    // console.log(result);
+const fetchImg = () =>
+  cloudinary.v2.api.resources(
+    { type: "upload", max_results: 500, prefix: "logos" },
+    (error, result) => {
+      result = Object.entries(result.resources);
+      // console.log(result);
 
-    let cloudArr = [];
-    let cloudObj = {};
-    result.forEach(([key, value]) => {
-      let secureUrl = value.secure_url;
-      let name = secureUrl.match(/(?<=logos\/)(.*)(?=.png)/gi).toString();
-      cloudObj[name] = secureUrl;
-    });
+      let cloudArr = [];
+      let cloudObj = {};
+      result.forEach(([key, value]) => {
+        let secureUrl = value.secure_url;
+        let name = secureUrl.match(/(?<=logos\/)(.*)(?=.png)/gi).toString();
+        cloudObj[name] = secureUrl;
+      });
 
-    console.log(cloudObj);
-  }
-);
+      return cloudObj;
+    }
+  );
+fetchImg();

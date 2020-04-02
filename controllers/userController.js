@@ -2,6 +2,7 @@ const authHelper = require("../utils/authHelper");
 const url = require("url");
 const axios = require("axios");
 require("dotenv").config();
+
 module.exports = {
   signup: async (req, res) => {
     try {
