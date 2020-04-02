@@ -12,7 +12,7 @@ module.exports = {
         .create({
           body: ".....you could be my postman, I could be your route 💦.",
           from: process.env.TWILIO_PHONE_NUMBER,
-          to: "+19176261808"
+          to: "+19144678691"
         })
         .then(message => console.log(message));
       res.status(200).send("notification has been sent");
