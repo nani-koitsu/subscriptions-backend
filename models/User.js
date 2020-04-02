@@ -4,12 +4,14 @@ const moment = require("moment");
 const now = moment();
 const UserSchema = new Schema({
   email: { type: String, unique: true, required: true, default: "" },
-  firstName: { type: String, unique: true, default: "" },
-  lastName: { type: String, unique: true, default: "" },
+  firstName: { type: String, default: "" },
+  lastName: { type: String, default: "" },
   password: { type: String, default: "", required: true },
   googleID: { type: String, unique: true, default: "" },
   googleVerified: { type: Boolean, default: false },
+  contactNumber: { type: String },
   pictureName: { type: String, trim: true, default: "" },
+  alert: { type: Boolean, default: false },
   subscriptions: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Subscription", default: "" }
   ],
