@@ -6,7 +6,7 @@ const SubscriptionSchema = new Schema({
   subscriptionType: { type: String, trim: true, default: "" },
   subscriptionName: { type: String, trim: true, default: "" },
   price: { type: String, required: true, default: "" },
-  image: { type: String, default: "" },
+  picture: { type: String, trim: true, default: "" },
   startDate: { type: String, default: "" },
   submittedBy: {
     type: mongoose.Schema.Types.ObjectId,

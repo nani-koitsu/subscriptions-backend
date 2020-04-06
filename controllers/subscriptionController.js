@@ -10,9 +10,9 @@ module.exports = {
         subscriptionType: req.body.subscriptionType,
         subscriptionName: req.body.subscriptionName,
         price: req.body.price,
-        image: req.body.image,
+        picture: req.body.picture,
         startDate: req.body.startDate,
-        submittedBy: req.body.submittedBy
+        submittedBy: req.body.submittedBy,
       });
       let savedSubscription = await newSubscription.save();
       console.log("saved sub", savedSubscription);
@@ -29,7 +29,7 @@ module.exports = {
     const id = req.params.id;
     try {
       let selectedSubscription = await Subscription.findById({
-        submittedBy: id
+        submittedBy: id,
       });
       res.status(200).json(selectedSubscription);
     } catch (error) {
@@ -59,5 +59,5 @@ module.exports = {
       console.log(error);
       res.status(500).json(error);
     }
-  }
+  },
 };
