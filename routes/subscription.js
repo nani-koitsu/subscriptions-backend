@@ -12,6 +12,7 @@ router.get(
   subscriptionController.getSubscriptionByID
 );
 router.delete("/delete-by-id/:id", subscriptionController.deleteByID);
+
 router.post("/create-subscription", subscriptionController.addSubscription);
 
 module.exports = router;

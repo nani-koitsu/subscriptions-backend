@@ -3,7 +3,6 @@ const Subscription = require("../models/Subscription");
 
 module.exports = {
   addSubscription: async (req, res) => {
-    console.log(req.body);
     try {
       let foundUser = await User.findById(req.body.submittedBy);
       let newSubscription = await new Subscription({
@@ -15,7 +14,7 @@ module.exports = {
         submittedBy: req.body.submittedBy,
       });
       let savedSubscription = await newSubscription.save();
-      console.log("saved sub", savedSubscription);
+      // console.log("saved sub", savedSubscription);
 
       await foundUser.subscriptions.push(savedSubscription);
       await foundUser.save();
@@ -38,6 +37,7 @@ module.exports = {
     }
   },
   deleteByID: async (req, res) => {
+    console.log('you made it here')
     const id = req.params.id;
     try {
       let deletedByID = await Subscription.findByIdAndRemove(id);

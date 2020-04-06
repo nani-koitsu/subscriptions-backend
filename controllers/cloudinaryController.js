@@ -28,7 +28,7 @@ module.exports = {
             });
           }
         )
-        .then(() => console.log(`success`));
+        .then(() => console.log(`success backend`));
       // console.log("new object", cloudObj);
       res.status(200).send(cloudObj);
     } catch (error) {
