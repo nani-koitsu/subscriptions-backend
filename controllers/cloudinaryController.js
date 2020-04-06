@@ -4,7 +4,7 @@ require("dotenv").config();
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 module.exports = {
@@ -29,12 +29,12 @@ module.exports = {
           }
         )
         .then(() => console.log(`success`));
-      console.log("new object", cloudObj);
+      // console.log("new object", cloudObj);
       res.status(200).send(cloudObj);
     } catch (error) {
       console.log(error);
 
       res.status(500).send("Image server not responding");
     }
-  }
+  },
 };

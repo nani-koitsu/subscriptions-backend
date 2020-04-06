@@ -10,15 +10,15 @@ const UserSchema = new Schema({
   googleID: { type: String, unique: true, default: "" },
   googleVerified: { type: Boolean, default: false },
   contactNumber: { type: String },
-  pictureName: { type: String, trim: true, default: "" },
+  avatar: { type: String, trim: true, default: "" },
   alert: { type: Boolean, default: false },
   subscriptions: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "Subscription", default: "" }
+    { type: mongoose.Schema.Types.ObjectId, ref: "Subscription", default: "" },
   ],
   timestamp: {
     type: String,
-    default: now.format("dddd, MMMM Do YYYY, h:mm:ss a")
-  }
+    default: now.format("dddd, MMMM Do YYYY, h:mm:ss a"),
+  },
 });
 
 const User = mongoose.model("User", UserSchema);

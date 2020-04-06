@@ -10,12 +10,12 @@ const SubscriptionSchema = new Schema({
   startDate: { type: String, default: "" },
   submittedBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
   },
   timestamp: {
     type: String,
-    default: now.format("dddd, MMMM Do YYYY, h:mm:ss a")
-  }
+    default: now.format("dddd, MMMM Do YYYY, h:mm:ss a"),
+  },
 });
 
 module.exports = mongoose.model("Subscription", SubscriptionSchema);
