@@ -59,4 +59,22 @@ module.exports = {
       res.status(500).json(error);
     }
   },
+  editUserSubscription: async (req, res) => {
+    // console.log(req.body)
+    try {
+      let updatedSubscription = await Subscription.findByIdAndUpdate(req.body.subID, 
+        { 
+          subscriptionType: req.body.subscriptionType,
+          price: req.body.price,
+          startDate: req.body.startDate
+        })
+
+        console.log(updatedSubscription)
+      res.status(200).json(updatedSubscription)
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).json(error);
+    }
+  }
 };

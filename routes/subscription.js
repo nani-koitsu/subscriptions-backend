@@ -15,4 +15,6 @@ router.delete("/delete-by-id/:id", subscriptionController.deleteByID);
 
 router.post("/create-subscription", subscriptionController.addSubscription);
 
+router.put('/edit-user-sub/:id', subscriptionController.editUserSubscription)
+
 module.exports = router;
