@@ -37,7 +37,6 @@ module.exports = {
     }
   },
   deleteByID: async (req, res) => {
-    console.log('you made it here')
     const id = req.params.id;
     try {
       let deletedByID = await Subscription.findByIdAndRemove(id);
