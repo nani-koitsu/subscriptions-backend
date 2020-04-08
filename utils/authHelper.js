@@ -9,13 +9,13 @@ async function hashPassword(password) {
 }
 
 async function createUser(user) {
-  let { email, firstName, lastName, password, googleID, subscriptions } = user;
+  let { email, firstName, lastName, password, subscriptions } = user;
   let newUser = await new User({
     email,
     firstName,
     lastName,
     password,
-    subscriptions
+    subscriptions,
   });
   return newUser;
 }
@@ -44,11 +44,11 @@ async function findOneUser(email) {
 async function createJwtToken(user) {
   let payload = {
     id: user._id,
-    email: user.email
+    email: user.email,
   };
 
   let jwtToken = await jwt.sign(payload, process.env.SECRET_KEY, {
-    expiresIn: 3600
+    expiresIn: 3600,
   });
   return jwtToken;
 }
@@ -67,23 +67,25 @@ async function comparePassword(incomingPassword, userPassword) {
     return error;
   }
 }
-
-async function createGoogleUserJwtToken(user) {
+async function createGoogleJwtToken(user) {
   let payload = {
+    id: user._id,
+    email: user.email,
     firstName: user.given_name,
     lastName: user.family_name,
-    password: user.sub,
-    email: user.email,
+    googleId: user.sub,
     picture: user.picture,
     googleVerified: user.email_verified,
     locale: user.locale
   };
 
   let jwtToken = await jwt.sign(payload, process.env.SECRET_KEY, {
-    expiresIn: 3600
+    expiresIn: 3600,
   });
+  console.log('Google JWT', jwtToken)
   return jwtToken;
 }
+
 module.exports = {
   hashPassword,
   createUser,
@@ -91,5 +93,5 @@ module.exports = {
   findOneUser,
   createJwtToken,
   comparePassword,
-  createGoogleUserJwtToken
+  createGoogleJwtToken,
 };

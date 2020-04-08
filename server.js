@@ -6,20 +6,13 @@ const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
 
-/* Configurations & Environment Variables */
+/* MongoDB connection */
 require("./config/mongo/mongoDB");
-require("./config/google/google-config");
-require("dotenv").config();
 
-/* Passport */
-passport.serializeUser((user, cb) => {
-  cb(null, user);
-});
-passport.deserializeUser((user, cb) => {
-  cb(null, user);
-});
-const userJWTstrategy = require("./lib/Passport");
-passport.use("jwt", userJWTstrategy);
+/* User Passport */
+passport.serializeUser((user, cb) => cb(null, user));
+passport.deserializeUser((user, cb) => cb(null, user));
+passport.use("jwt", require('./lib/user-passport'));
 
 /* Server Configuration */
 app.use(passport.initialize());
@@ -32,7 +25,6 @@ app.use(cookieParser());
 
 /* Routes */
 app.use("/", require("./routes/index"));
-app.use("/auth", require("./routes/auth"));
 app.use("/users", require("./routes/users"));
 app.use("/twilio", require("./routes/twilio"));
 app.use("/cloudinary", require("./routes/cloudinary"));

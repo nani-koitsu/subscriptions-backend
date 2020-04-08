@@ -1,6 +1,5 @@
 const authHelper = require("../utils/authHelper");
 const url = require("url");
-const axios = require("axios");
 require("dotenv").config();
 
 module.exports = {
@@ -14,13 +13,13 @@ module.exports = {
 
       res.status(200).json({
         user: savedUser,
-        message: "User Successfully created! Please Login"
+        message: "User Successfully created! Please Login",
       });
     } catch (error) {
       let errorMessage = await authHelper.errorHandler(error);
 
       res.status(500).json({
-        message: errorMessage
+        message: errorMessage,
       });
     }
   },
@@ -39,37 +38,32 @@ module.exports = {
       }
       let jwtToken = await authHelper.createJwtToken(foundUser);
       res.status(200).json({
-        token: jwtToken
+        token: jwtToken,
       });
     } catch (error) {
       res.status(500).json({
-        message: error
+        message: error,
       });
     }
   },
-  googleUserSignup: async (req, res) => {
+
+  googleSignin: async (req, res) => {
     try {
-      let newUser = await authHelper.createUser(req.body);
-    } catch (e) {
-      console.log(e);
-    }
-  },
-  googleUserLogin: async (req, res) => {
-    try {
+      await authHelper.createGoogleUser;
       let jwtToken = await authHelper.createGoogleUserJwtToken(req.user);
       res.redirect(
         url.format({
           pathname: "http://localhost:3000/auth/google/redirect",
           query: {
-            token: jwtToken
-          }
+            token: jwtToken,
+          },
         })
       );
     } catch (error) {
       console.log(error);
       res.status(500).json({
-        message: error
+        message: error,
       });
     }
-  }
+  },
 };
