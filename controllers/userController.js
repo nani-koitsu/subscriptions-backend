@@ -59,23 +59,25 @@ module.exports = {
     console.log('NEW GOOGLE USER LINE 65', req.user)
 
     try {
-      let googleUser = await authHelper.findOneUser(req.user);
-      let newUser;
-      // console.log('newGoogleUser line 63')
+      let googleUser = await authHelper.findOneUser(req.user.email);
+      console.log(req.email)
+      //if googleUser not found
 
-      console.log(req.user)
+
+
+      console.log(req.user.email)
 
       if (googleUser === 404) {
-        newUser = googleUser
-      } else {
-        newUser = await authHelper.createUser(req.user)
+        let newUser = await authHelper.createUser(req.user)
         let savedNewGoogleUser =
           await newUser.save()
         console.log('SAVED NEW USER', savedNewGoogleUser)
-        // let googleJwtToken =
-        //   await authHelper.createGoogleJwtToken(savedNewGoogleUser)
+        let googleJwtToken =
+          await authHelper.createGoogleJwtToken(savedNewGoogleUser)
 
-        res.status(200).json({ user: savedNewGoogleUser, message: 'LETS GOOOO' })
+        res.status(200).json({ token: googleJwtToken, message: 'LETS GOOOO' })
+      } else {
+
       }
 
 

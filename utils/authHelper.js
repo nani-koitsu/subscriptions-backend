@@ -74,7 +74,18 @@ async function comparePassword(incomingPassword, userPassword) {
   }
 }
 
-
+// async function findOneGoogleUser(email) {
+//   try {
+//     let foundUser = await User.findOne({ user: email });
+//     if (!foundUser) {
+//       return 404;
+//     }
+//     return foundUser;
+//   } catch (error) {
+//     console.log(error);
+//     return error;
+//   }
+// }
 async function createGoogleJwtToken(user) {
   let payload = {
     googleID: user.sub,
@@ -85,12 +96,7 @@ async function createGoogleJwtToken(user) {
   let googleJwtToken = await jwt.sign(payload, process.env.SECRET_KEY, {
     expiresIn: 3600,
   });
-  res.redirect(
-    url.format({
-      pathname: "http://localhost:3000/auth/google/redirect",
-      query: { token: googleJwtToken }
-    })
-  )
+
   return googleJwtToken
 
 }
