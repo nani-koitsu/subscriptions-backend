@@ -10,12 +10,13 @@ const morgan = require("morgan");
 require("./config/mongo/mongoDB");
 
 /* User Passport */
+app.use(passport.initialize());
 passport.serializeUser((user, cb) => cb(null, user));
 passport.deserializeUser((user, cb) => cb(null, user));
 passport.use("jwt", require('./lib/user-passport'));
+// passport.use('google', require('./lib/google-passport'))
 
 /* Server Configuration */
-app.use(passport.initialize());
 app.disable("x-powered-by");
 app.use(cors({ origin: "http://localhost:3000", credentials: false }));
 app.use(morgan("dev"));

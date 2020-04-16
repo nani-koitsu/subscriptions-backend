@@ -8,6 +8,6 @@ resourceArr.map(([key, value]) => {
 
   subscriptionObj[logoName] = secureUrl;
   let entries = Object.entries(subscriptionObj);
-  console.log;
+
 });
 console.log(entries);

@@ -9,14 +9,20 @@ async function hashPassword(password) {
 }
 
 async function createUser(user) {
-  let { email, firstName, lastName, password, subscriptions } = user;
   let newUser = await new User({
-    email,
-    firstName,
-    lastName,
-    password,
-    subscriptions,
+    id: user._id,
+    email: user.email,
+    password: user.password,
+    contactNumber: user.contactNumber,
+    firstName: user.given_name,
+    lastName: user.family_name,
+    subscriptions: user.subscriptions,
+    picture: user.picture,
+    googleID: user.sub,
+    googleVerified: user.email_verified,
+    locale: user.locale,
   });
+
   return newUser;
 }
 
@@ -50,7 +56,7 @@ async function createJwtToken(user) {
   let jwtToken = await jwt.sign(payload, process.env.SECRET_KEY, {
     expiresIn: 3600,
   });
-  return jwtToken;
+  return jwtToken
 }
 
 async function comparePassword(incomingPassword, userPassword) {
@@ -67,23 +73,26 @@ async function comparePassword(incomingPassword, userPassword) {
     return error;
   }
 }
+
+
 async function createGoogleJwtToken(user) {
   let payload = {
+    googleID: user.sub,
     id: user._id,
-    email: user.email,
-    firstName: user.given_name,
-    lastName: user.family_name,
-    googleId: user.sub,
-    picture: user.picture,
-    googleVerified: user.email_verified,
-    locale: user.locale
+    email: user.email
   };
 
-  let jwtToken = await jwt.sign(payload, process.env.SECRET_KEY, {
+  let googleJwtToken = await jwt.sign(payload, process.env.SECRET_KEY, {
     expiresIn: 3600,
   });
-  console.log('Google JWT', jwtToken)
-  return jwtToken;
+  res.redirect(
+    url.format({
+      pathname: "http://localhost:3000/auth/google/redirect",
+      query: { token: googleJwtToken }
+    })
+  )
+  return googleJwtToken
+
 }
 
 module.exports = {

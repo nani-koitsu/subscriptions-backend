@@ -99,13 +99,13 @@ console.log(entries);
 
 /*
 {
-  adobe: 'https://res.cloudinary.com/dg1xmeryg/image/upload/v1585753401/logos/adobe.png', 
+  adobe: 'https://res.cloudinary.com/dg1xmeryg/image/upload/v1585753401/logos/adobe.png',
 
-  apple: 'https://res.cloudinary.com/dg1xmeryg/image/upload/v1585753401/logos/apple.png', 
+  apple: 'https://res.cloudinary.com/dg1xmeryg/image/upload/v1585753401/logos/apple.png',
 
   appsumo: 'https://res.cloudinary.com/dg1xmeryg/image/upload/v1585753401/logos/appsumo.png'
 
-} 
+}
 
 
   */

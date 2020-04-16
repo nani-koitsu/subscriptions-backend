@@ -5,15 +5,20 @@ require("dotenv").config();
 module.exports = {
   signup: async (req, res) => {
     try {
+
       let newUser = await authHelper.createUser(req.body);
+
       let hashedPassword = await authHelper.hashPassword(newUser.password);
+
       newUser.password = hashedPassword;
+
       let savedUser = await newUser.save();
-      console.log(savedUser);
+
+      console.log('signup line 17', savedUser);
 
       res.status(200).json({
         user: savedUser,
-        message: "User Successfully created! Please Login",
+        message: "Get to hacking! Please Login",
       });
     } catch (error) {
       let errorMessage = await authHelper.errorHandler(error);
@@ -46,19 +51,37 @@ module.exports = {
       });
     }
   },
+  /*
+    Reminder Google Users do not share
+    the same validations as Users
+  */
+  googleAuthentication: async (req, res) => {
+    console.log('NEW GOOGLE USER LINE 65', req.user)
 
-  googleSignin: async (req, res) => {
     try {
-      await authHelper.createGoogleUser;
-      let jwtToken = await authHelper.createGoogleUserJwtToken(req.user);
-      res.redirect(
-        url.format({
-          pathname: "http://localhost:3000/auth/google/redirect",
-          query: {
-            token: jwtToken,
-          },
-        })
-      );
+      let googleUser = await authHelper.findOneUser(req.user);
+      let newUser;
+      // console.log('newGoogleUser line 63')
+
+      console.log(req.user)
+
+      if (googleUser === 404) {
+        newUser = googleUser
+      } else {
+        newUser = await authHelper.createUser(req.user)
+        let savedNewGoogleUser =
+          await newUser.save()
+        console.log('SAVED NEW USER', savedNewGoogleUser)
+        // let googleJwtToken =
+        //   await authHelper.createGoogleJwtToken(savedNewGoogleUser)
+
+        res.status(200).json({ user: savedNewGoogleUser, message: 'LETS GOOOO' })
+      }
+
+
+
+      // console.log(`NEW GOOGLE USER`, googleJwtToken)
+
     } catch (error) {
       console.log(error);
       res.status(500).json({

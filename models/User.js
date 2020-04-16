@@ -31,12 +31,14 @@ const UserSchema = new Schema({
     default: ""
   },
   contactNumber: {
-    type: Number
+    type: Number,
+    default: ''
   },
   googleID: {
     type: String,
-    unique: true,
-    default: ""
+    required: true,
+    default: ''
+
   },
   googleVerified: {
     type: Boolean,

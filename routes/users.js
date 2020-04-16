@@ -8,11 +8,7 @@ const userController = require("../controllers/userController");
   GET made to localhost:3001/users/authenticate to get to permissions screen.
 */
 
-router.get(
-  "/authenticate",
-  passport.authenticate("google")
-  // userController.googleUserSignin
-);
+router.get("/authenticate", passport.authenticate("google"));
 
 /*
   callback route for google
@@ -23,11 +19,7 @@ router.get(
 router.get(
   "/google-auth/redirect",
   passport.authenticate("google"),
-  // usercontroller
-  (req, res) => {
-    console.log(res.json());
-    res.send('fucking made it');
-  }
+  userController.googleAuthentication
 );
 
 router.post("/signup", userController.signup);
