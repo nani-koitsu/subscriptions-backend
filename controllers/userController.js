@@ -56,33 +56,29 @@ module.exports = {
     the same validations as Users
   */
   googleAuthentication: async (req, res) => {
-    console.log('NEW GOOGLE USER LINE 65', req.user)
+    // console.log('NEW GOOGLE USER ', req.user)
 
     try {
       let googleUser = await authHelper.findOneUser(req.user.email);
-      console.log(req.email)
-      //if googleUser not found
-
-
-
-      console.log(req.user.email)
 
       if (googleUser === 404) {
+        // create the user, save the user,
         let newUser = await authHelper.createUser(req.user)
         let savedNewGoogleUser =
           await newUser.save()
-        console.log('SAVED NEW USER', savedNewGoogleUser)
+        // console.log('SAVED NEW USER', savedNewGoogleUser)
         let googleJwtToken =
           await authHelper.createGoogleJwtToken(savedNewGoogleUser)
 
         res.status(200).json({ token: googleJwtToken, message: 'LETS GOOOO' })
       } else {
 
+        let googleJwtToken = await authHelper.createGoogleJwtToken(googleUser)
+        console.log(' GOOGLE JWT TOKEN', googleJwtToken)
+        res.status(200).json({
+          token: googleJwtToken
+        })
       }
-
-
-
-      // console.log(`NEW GOOGLE USER`, googleJwtToken)
 
     } catch (error) {
       console.log(error);
