@@ -36,7 +36,6 @@ const UserSchema = new Schema({
   },
   googleID: {
     type: String,
-    required: true,
     default: ''
 
   },
@@ -48,7 +47,6 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false
   },
-
   subscriptions: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Subscription", default: "" },
   ],
