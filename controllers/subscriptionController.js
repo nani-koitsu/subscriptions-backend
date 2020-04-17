@@ -67,7 +67,7 @@ module.exports = {
           subscriptionType: req.body.subscriptionType,
           price: req.body.price,
           startDate: req.body.startDate
-        })
+        }, {new: true})
 
         console.log(updatedSubscription)
       res.status(200).json(updatedSubscription)
