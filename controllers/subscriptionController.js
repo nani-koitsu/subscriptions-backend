@@ -3,6 +3,10 @@ const Subscription = require("../models/Subscription");
 
 module.exports = {
   addSubscription: async (req, res) => {
+
+    let date = req.body.startDate;
+    let convertedDate = parseInt((new Date(date).getTime() / 1000).toFixed(0));
+
     try {
       let foundUser = await User.findById(req.body.submittedBy);
       let newSubscription = await new Subscription({
@@ -10,7 +14,7 @@ module.exports = {
         subscriptionName: req.body.subscriptionName,
         price: req.body.price,
         picture: req.body.picture,
-        startDate: req.body.startDate,
+        startDate: convertedDate,
         submittedBy: req.body.submittedBy,
       });
       let savedSubscription = await newSubscription.save();
@@ -52,7 +56,7 @@ module.exports = {
       let allUserSubscriptions = await User.findById({ _id: id })
         .populate("subscriptions")
         .exec();
-      console.log(allUserSubscriptions.subscriptions);
+      // console.log(allUserSubscriptions.subscriptions);
       res.status(200).json(allUserSubscriptions.subscriptions);
     } catch (error) {
       console.log(error);
@@ -69,7 +73,7 @@ module.exports = {
           startDate: req.body.startDate
         }, { new: true })
 
-      console.log('Line 72 Updated Subscription', updatedSubscription)
+      // console.log('Line 72 Updated Subscription', updatedSubscription)
       res.status(200).json(updatedSubscription)
 
     } catch (error) {
