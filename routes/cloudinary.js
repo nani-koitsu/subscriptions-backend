@@ -3,8 +3,9 @@ const router = express.Router();
 const cloudinaryController = require("../controllers/cloudinaryController");
 
 /*
-      CLOUDINARY ROUTER
-  @ desc: Fetch all images from cloudinary collection
+   @ route    GET /cloudinary
+   @ desc     Fetch available images from cloudinary collection.
+   @ access   Private
 */
 
 router.get("/", cloudinaryController.fetchAllImages);

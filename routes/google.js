@@ -5,30 +5,18 @@ const passport = require('passport')
 require('../lib/google-passport')
 
 router.get("/auth/google",
-  passport.authenticate("google",
-    {
-      scope: ["profile", "email"]
-    }
+  passport.authenticate("google", { scope: ["profile", "email"] }
   ));
 
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: '/', session: false }),
   (req, res) => {
-    console.log('REQ USER', req.user)
-    let token = req.user;
-    res.redirect('http://localhost:3000?token=' + token)
+    console.log('Google JWT', req.user)
+    let jwtToken = req.user;
+    res.redirect(`http://localhost:3000/google/?token=${jwtToken}`)
   }
 
 );
-// router.get(
-//   "/auth/google/callback",
-//   passport.authenticate("google", { failureRedirect: '/', session: false }),
-//   (req, res) => {
-//     console.log('REQ USER', req.user)
-//     let token = req.user.token;
-//     res.redirect('http://localhost:3000?token=' + token)
-//   }
 
-// );
 module.exports = router;

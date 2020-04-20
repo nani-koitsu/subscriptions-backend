@@ -70,7 +70,7 @@ async function comparePassword(incomingPassword, userPassword) {
 async function createGoogleUser(user) {
 
   let newUser = await new User({
-
+    id: user._id,
     googleId: user.googleId,
     email: user.email,
     firstName: user.firstName,
@@ -85,11 +85,8 @@ async function createGoogleJwtToken(user) {
 
   let payload = {
     id: user._id,
-    token: user.token,
     email: user.email,
     googleId: user.googleId,
-    profilePicture: user.profilePicture,
-    googleVerified: user.googleVerified
   };
 
   let jwtToken = await jwt.sign(payload, process.env.SECRET_KEY, {

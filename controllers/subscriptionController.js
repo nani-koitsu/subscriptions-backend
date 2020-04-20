@@ -62,14 +62,14 @@ module.exports = {
   editUserSubscription: async (req, res) => {
     // console.log(req.body)
     try {
-      let updatedSubscription = await Subscription.findByIdAndUpdate(req.body.subID, 
-        { 
+      let updatedSubscription = await Subscription.findByIdAndUpdate(req.body.subID,
+        {
           subscriptionType: req.body.subscriptionType,
           price: req.body.price,
           startDate: req.body.startDate
-        }, {new: true})
+        }, { new: true })
 
-        console.log(updatedSubscription)
+      console.log('Line 72 Updated Subscription', updatedSubscription)
       res.status(200).json(updatedSubscription)
 
     } catch (error) {
