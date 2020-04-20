@@ -9,6 +9,7 @@ const userController = require("../controllers/userController");
    @ access   Public
 */
 router.post("/signup", userController.signup);
+
 /*
    @ route    POST users/signup
    @ desc     Create a user through application.

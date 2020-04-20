@@ -23,6 +23,7 @@ passport.use("jwt", require('./lib/user-passport'));
 /*
   Server Configuration
 */
+
 app.disable("x-powered-by");
 app.use(cors());
 // origin: "http://localhost:3000/", credentials: false,

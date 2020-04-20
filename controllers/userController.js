@@ -14,7 +14,7 @@ module.exports = {
 
       let savedUser = await newUser.save();
 
-      console.log('signup line 17', savedUser);
+      // console.log('signup line 17', savedUser);
 
       res.status(200).json({
         user: savedUser,
@@ -57,47 +57,47 @@ module.exports = {
     Reminder Google Users do not share
     the same validations as Users
   */
-  googleAuthentication: async (req, res) => {
-    try {
+  // googleAuthentication: async (req, res) => {
+  //   try {
 
-      let googleUser =
-        await authHelper.findOneUser(req.user.email);
+  //     let googleUser =
+  //       await authHelper.findOneUser(req.user.email);
 
-      if (googleUser === 404) {
+  //     if (googleUser === 404) {
 
-        let newUser =
-          await authHelper.createUser(req.user)
+  //       let newUser =
+  //         await authHelper.createUser(req.user)
 
-        let savedNewGoogleUser =
-          await newUser.save()
+  //       let savedNewGoogleUser =
+  //         await newUser.save()
 
-        let googleJwtToken =
-          await authHelper.createGoogleJwtToken(savedNewGoogleUser)
+  //       let googleJwtToken =
+  //         await authHelper.createGoogleJwtToken(savedNewGoogleUser)
 
 
-        console.log('Google JWT TOKEN LINE 75', googleJwtToken)
+  //       console.log('Google JWT TOKEN LINE 75', googleJwtToken)
 
-        res.status(200).json({
-          token: googleJwtToken,
-          message: `Welcome to Hack Subscripitons, Thank you ${req.user.email} for subscribing!`
-        })
+  //       res.status(200).json({
+  //         token: googleJwtToken,
+  //         message: `Welcome to Hack Subscripitons, Thank you ${req.user.email} for subscribing!`
+  //       })
 
-      } else {
-        let googleJwtToken =
-          await authHelper.createGoogleJwtToken(googleUser)
+  //     } else {
+  //       let googleJwtToken =
+  //         await authHelper.createGoogleJwtToken(googleUser)
 
-        console.log(googleJwtToken)
+  //       console.log(googleJwtToken)
 
-        res.status(200).json({
-          token: googleJwtToken,
-          message: `Welcome Back ${req.user.email}`
-        })
-      }
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({
-        message: error,
-      });
-    }
-  },
+  //       res.status(200).json({
+  //         token: googleJwtToken,
+  //         message: `Welcome Back ${req.user.email}`
+  //       })
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     res.status(500).json({
+  //       message: error,
+  //     });
+  //   }
+  // },
 };

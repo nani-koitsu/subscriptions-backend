@@ -16,7 +16,6 @@ router.get(
     let jwtToken = req.user;
     res.redirect(`http://localhost:3000/google/?token=${jwtToken}`)
   }
-
 );
 
 module.exports = router;
