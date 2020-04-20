@@ -25,7 +25,7 @@ const UserSchema = new Schema({
     trim: true,
     default: ""
   },
-  profilePic: {
+  profilePicture: {
     type: String,
     trim: true,
     default: ""
@@ -34,10 +34,9 @@ const UserSchema = new Schema({
     type: Number,
     default: ''
   },
-  googleID: {
+  googleId: {
     type: String,
     default: ''
-
   },
   googleVerified: {
     type: Boolean,

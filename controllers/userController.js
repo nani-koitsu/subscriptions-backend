@@ -1,5 +1,5 @@
 const authHelper = require("../utils/authHelper");
-const url = require("url");
+// const url = require("url");
 require("dotenv").config();
 
 module.exports = {
@@ -42,9 +42,11 @@ module.exports = {
         throw "Check your email and password";
       }
       let jwtToken = await authHelper.createJwtToken(foundUser);
+
       res.status(200).json({
         token: jwtToken,
       });
+
     } catch (error) {
       res.status(500).json({
         message: error,
@@ -72,6 +74,9 @@ module.exports = {
         let googleJwtToken =
           await authHelper.createGoogleJwtToken(savedNewGoogleUser)
 
+
+        console.log('Google JWT TOKEN LINE 75', googleJwtToken)
+
         res.status(200).json({
           token: googleJwtToken,
           message: `Welcome to Hack Subscripitons, Thank you ${req.user.email} for subscribing!`
@@ -82,12 +87,12 @@ module.exports = {
           await authHelper.createGoogleJwtToken(googleUser)
 
         console.log(googleJwtToken)
+
         res.status(200).json({
           token: googleJwtToken,
           message: `Welcome Back ${req.user.email}`
         })
       }
-
     } catch (error) {
       console.log(error);
       res.status(500).json({

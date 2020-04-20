@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 /* Routes */
-app.use("/", require("./routes/index"));
+app.use("/", require("./routes/google"));
 app.use("/users", require("./routes/users"));
 app.use("/twilio", require("./routes/twilio"));
 app.use("/cloudinary", require("./routes/cloudinary"));

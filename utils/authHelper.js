@@ -13,14 +13,7 @@ async function createUser(user) {
     id: user._id,
     email: user.email,
     password: user.password,
-    contactNumber: user.contactNumber,
-    firstName: user.given_name,
-    lastName: user.family_name,
-    subscriptions: user.subscriptions,
-    picture: user.picture,
-    googleID: user.sub,
-    googleVerified: user.email_verified,
-    locale: user.locale,
+    contactNumber: user.contactNumber
   });
 
   return newUser;
@@ -74,20 +67,35 @@ async function comparePassword(incomingPassword, userPassword) {
   }
 }
 
+async function createGoogleUser(user) {
 
+  let newUser = await new User({
+
+    googleId: user.googleId,
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    profilePicture: user.profilePicture,
+    googleVerified: user.googleVerified,
+  })
+
+  return newUser;
+}
 async function createGoogleJwtToken(user) {
+
   let payload = {
-    googleID: user.sub,
     id: user._id,
-    email: user.email
+    token: user.token,
+    email: user.email,
+    googleId: user.googleId,
+    profilePicture: user.profilePicture,
+    googleVerified: user.googleVerified
   };
 
-  let googleJwtToken = await jwt.sign(payload, process.env.SECRET_KEY, {
+  let jwtToken = await jwt.sign(payload, process.env.SECRET_KEY, {
     expiresIn: 3600,
   });
-
-  return googleJwtToken
-
+  return jwtToken
 }
 
 module.exports = {
@@ -97,5 +105,6 @@ module.exports = {
   findOneUser,
   createJwtToken,
   comparePassword,
+  createGoogleUser,
   createGoogleJwtToken,
 };
