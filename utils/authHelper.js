@@ -13,13 +13,16 @@ async function createUser(user) {
     id: user._id,
     email: user.email,
     password: user.password,
-    contactNumber: user.contactNumber
+    contactNumber: user.phone,
+    firstName: user.firstName,
+    lastName: user.lastName
   });
 
   return newUser;
 }
 
 async function errorHandler(error) {
+  
   let errorMessage = null;
   if (error.errmsg.includes("email_1")) {
     errorMessage = "Email Already Exist";

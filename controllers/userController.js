@@ -5,9 +5,7 @@ require("dotenv").config();
 module.exports = {
   signup: async (req, res) => {
     try {
-
       let newUser = await authHelper.createUser(req.body);
-
       let hashedPassword = await authHelper.hashPassword(newUser.password);
 
       newUser.password = hashedPassword;
@@ -22,7 +20,7 @@ module.exports = {
       });
     } catch (error) {
       let errorMessage = await authHelper.errorHandler(error);
-
+      
       res.status(500).json({
         message: errorMessage,
       });

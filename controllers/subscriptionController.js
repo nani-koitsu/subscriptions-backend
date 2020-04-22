@@ -3,7 +3,6 @@ const Subscription = require("../models/Subscription");
 
 module.exports = {
   addSubscription: async (req, res) => {
-
     let date = req.body.startDate;
     let convertedDate = parseInt((new Date(date).getTime() / 1000).toFixed(0));
 
@@ -64,13 +63,15 @@ module.exports = {
     }
   },
   editUserSubscription: async (req, res) => {
-    // console.log(req.body)
+    let date = req.body.startDate;
+    let convertedDate = parseInt((new Date(date).getTime() / 1000).toFixed(0));
+
     try {
       let updatedSubscription = await Subscription.findByIdAndUpdate(req.body.subID,
         {
           subscriptionType: req.body.subscriptionType,
           price: req.body.price,
-          startDate: req.body.startDate
+          startDate: convertedDate
         }, { new: true })
 
       // console.log('Line 72 Updated Subscription', updatedSubscription)

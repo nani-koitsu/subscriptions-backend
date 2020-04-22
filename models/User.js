@@ -31,7 +31,7 @@ const UserSchema = new Schema({
     default: ""
   },
   contactNumber: {
-    type: Number,
+    type: String,
     default: ''
   },
   googleId: {
