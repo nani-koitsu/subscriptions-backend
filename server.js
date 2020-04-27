@@ -35,11 +35,11 @@ app.use(cookieParser());
 /*
   Routes
 */
-app.use("/", require("./routes/google"));
-app.use("/users", require("./routes/users"));
-app.use("/twilio", require("./routes/twilio"));
-app.use("/cloudinary", require("./routes/cloudinary"));
-app.use("/subscription", require("./routes/subscription"));
+app.use("/api", require("./routes/google"));
+app.use("/api/users", require("./routes/users"));
+app.use("/api/twilio", require("./routes/twilio"));
+app.use("/api/cloudinary", require("./routes/cloudinary"));
+app.use("/api/subscription", require("./routes/subscription"));
 
 /*
   App Server
