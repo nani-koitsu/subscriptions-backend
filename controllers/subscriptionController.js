@@ -1,21 +1,14 @@
 const User = require("../models/User");
 const Subscription = require("../models/Subscription");
+const subHelper = require('../utils/subHelper');
 
 module.exports = {
   addSubscription: async (req, res) => {
-    let date = req.body.startDate;
-    let convertedDate = parseInt((new Date(date).getTime() / 1000).toFixed(0));
-
+    // let date = req.body.startDate;
+    // let convertedDate = parseInt((new Date(date).getTime() / 1000).toFixed(0));
     try {
       let foundUser = await User.findById(req.body.submittedBy);
-      let newSubscription = await new Subscription({
-        subscriptionType: req.body.subscriptionType,
-        subscriptionName: req.body.subscriptionName,
-        price: req.body.price,
-        picture: req.body.picture,
-        startDate: convertedDate,
-        submittedBy: req.body.submittedBy,
-      });
+      let newSubscription = await subHelper.createSubscription(req.body)
       let savedSubscription = await newSubscription.save();
       // console.log("saved sub", savedSubscription);
 
@@ -63,17 +56,8 @@ module.exports = {
     }
   },
   editUserSubscription: async (req, res) => {
-    let date = req.body.startDate;
-    let convertedDate = parseInt((new Date(date).getTime() / 1000).toFixed(0));
-
     try {
-      let updatedSubscription = await Subscription.findByIdAndUpdate(req.body.subID,
-        {
-          subscriptionType: req.body.subscriptionType,
-          price: req.body.price,
-          startDate: convertedDate
-        }, { new: true })
-
+      let updatedSubscription = await subHelper.editSubscription(req.body)
       // console.log('Line 72 Updated Subscription', updatedSubscription)
       res.status(200).json(updatedSubscription)
 
