@@ -22,7 +22,7 @@ async function createUser(user) {
 }
 
 async function errorHandler(error) {
-  
+
   let errorMessage = null;
   if (error.errmsg.includes("email_1")) {
     errorMessage = "Email Already Exist";

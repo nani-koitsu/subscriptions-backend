@@ -1,14 +1,6 @@
 const axios = require("axios");
-const cloudinary = require("cloudinary").v2;
-require("dotenv").config();
-
-// re-use for sub logos not found
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
+require('../cloudinaryConfig')
+const { RITE_KIT_CLIENT_ID } = require('../../config')
 
 const AxiosRiteKit = axios.create({
   baseURL: "https://api.ritekit.com/v1/images/",
@@ -18,7 +10,7 @@ const AxiosRiteKit = axios.create({
 
 AxiosRiteKit.get("logo?domain=google.com", {
   params: {
-    client_id: process.env.RITE_KIT_CLIENT_ID
+    client_id: RITE_KIT_CLIENT_ID
   }
 })
   .then(response => {

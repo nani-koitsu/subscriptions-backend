@@ -1,6 +1,9 @@
-require("dotenv").config();
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
+const {
+  TWILIO_ACCOUNT_SID,
+  TWILIO_AUTH_TOKEN,
+  TWILIO_PHONE_NUMBER } = require('../config')
+const accountSid = TWILIO_ACCOUNT_SID;
+const authToken = TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 
 module.exports = {
@@ -9,7 +12,7 @@ module.exports = {
       await client.messages
         .create({
           body: "💦",
-          from: process.env.TWILIO_PHONE_NUMBER,
+          from: TWILIO_PHONE_NUMBER,
           to: "+19136090226"
         })
         .then(message => console.log(message));

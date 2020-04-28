@@ -1,21 +1,28 @@
 const express = require("express");
 const router = express.Router();
 const passport = require('passport')
-// const userController = require("../controllers/userController");
-require('../lib/google-passport')
+const { CLIENT_HOST } = require('../config')
 
-router.get("/auth/google",
+
+require('../lib/google-passport')
+router.get("/google",
   passport.authenticate("google", { scope: ["profile", "email"] }
   ));
 
 router.get(
-  "/auth/google/callback",
+  "/google/callback",
   passport.authenticate("google", { failureRedirect: '/', session: false }),
   (req, res) => {
     console.log('Google JWT', req.user)
     let jwtToken = req.user;
-    res.redirect(`http://localhost:3000/google/?token=${jwtToken}`)
+    res.redirect(`${CLIENT_HOST}/google/?token=${jwtToken}`)
   }
 );
 
+/*
+
+ baseURL: process.env.NODE_ENV === 'development' ? '/api' : '',
+ res.redirect(req.baseUrl + '/dee');
+
+ */
 module.exports = router;

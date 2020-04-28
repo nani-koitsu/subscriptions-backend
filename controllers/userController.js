@@ -1,6 +1,5 @@
 const authHelper = require("../utils/authHelper");
-// const url = require("url");
-require("dotenv").config();
+
 
 module.exports = {
   signup: async (req, res) => {
@@ -20,7 +19,7 @@ module.exports = {
       });
     } catch (error) {
       let errorMessage = await authHelper.errorHandler(error);
-      
+
       res.status(500).json({
         message: errorMessage,
       });

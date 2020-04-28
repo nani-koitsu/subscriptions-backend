@@ -5,14 +5,16 @@ const passport = require("passport");
 const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
+const path = require('path')
+const { CLIENT_HOST, SERVER_HOST } = require('./config')
+
 
 /*
   MongoDB connection
 */
-require("./config/mongo/mongoDB");
-
+require('./utils/mongo/mongoDB')
 /*
-  User Passport
+User Passport
 */
 app.use(passport.initialize());
 passport.serializeUser((user, cb) => cb(null, user));
@@ -21,38 +23,58 @@ passport.use("jwt", require('./lib/user-passport'));
 
 
 /*
-  Server Configuration
+Server Configuration
 */
 
 app.disable("x-powered-by");
 app.use(cors());
-// origin: "http://localhost:3000/", credentials: false,
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 
 /*
-  Routes
+Routes
 */
-app.use("/api", require("./routes/google"));
+
+app.use("/api/auth", require("./routes/google"));
 app.use("/api/users", require("./routes/users"));
 app.use("/api/twilio", require("./routes/twilio"));
 app.use("/api/cloudinary", require("./routes/cloudinary"));
 app.use("/api/subscription", require("./routes/subscription"));
 
+
 /*
-  App Server
+Serve Static files in production
 */
+
+// app.use(express.static(path.join(__dirname, 'public')));
+
+
+/*
+App Server
+*/
+
+console.log(require('./config').GOOGLE_CALLBACK_URL)
+console.log(require('./config').GOOGLE_CALLBACK_URL)
+
+
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+app.listen(PORT, () => console.log(`
+===================================
+Listening on port: ${PORT}
+Environment: ${process.env.NODE_ENV}
+Server Host: ${SERVER_HOST}
+Client Host: ${CLIENT_HOST}
+==================================
+`));
 
 /*
   Twilio Server
 */
 
 http.createServer(app).listen(1337, () => {
-  console.log("Express server listening on port 1337");
+  console.log("Twilio Server listening on port 1337");
 });
 
 module.exports = app;
