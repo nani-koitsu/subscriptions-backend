@@ -3,16 +3,18 @@ require('dotenv').config()
 module.exports = {
   SERVER_HOST:
     process.env.DEV_HOST,
+
   CLIENT_HOST:
     process.env.DEV_CLIENT_HOST,
+
   MONGODB_URI:
-    'mongodb://localhost:27017/hack-subscriptions',
+    process.env.DEV_MONGODB_URI,
 
   MONGO_CLIENT_SECRET:
-    'hackcheddar',
+    process.env.DEV_MONGODB_URI,
 
   SECRET_KEY:
-    'hack-sub-secret-key',
+    process.env.SECRET_KEY,
 
   GOOGLE_CLIENT_ID:
     process.env.GOOGLE_CLIENT_ID,

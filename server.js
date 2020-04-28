@@ -55,8 +55,8 @@ Serve Static files in production
 App Server
 */
 
-console.log(require('./config').GOOGLE_CALLBACK_URL)
-console.log(require('./config').GOOGLE_CALLBACK_URL)
+// console.log(require('./config').GOOGLE_CALLBACK_URL)
+// console.log(require('./config').GOOGLE_CALLBACK_URL)
 
 
 const PORT = process.env.PORT || 3001;
