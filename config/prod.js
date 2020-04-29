@@ -3,8 +3,11 @@ require('dotenv').config()
 
 module.exports = {
   // APP
-  HOST_URL:
-    process.env.PRODUCTION_HOST,
+  SERVER_HOST:
+    process.env.DEV_HOST,
+
+  CLIENT_HOST:
+    process.env.PROD_HOST,
 
   // MONGODB
   MONGO_CLIENT_SECRET:
