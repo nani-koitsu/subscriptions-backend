@@ -4,7 +4,7 @@ require('dotenv').config()
 module.exports = {
   // APP
   SERVER_HOST:
-    process.env.DEV_HOST,
+    process.env.SERVER_HOST,
 
   CLIENT_HOST:
     process.env.PROD_HOST,
