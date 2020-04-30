@@ -1,4 +1,5 @@
 const Subscription = require('../models/Subscription');
+const Appointment = require('../models/Appointment');
 
 function createSubscription(sub) {
     //deconstruct obj into the various methods
@@ -23,6 +24,7 @@ function createSubscription(sub) {
 async function editSubscription(sub) {
     let { startDate, price, subscriptionType, subID, daysPrior } = sub
     let convertedDates = dateConverter(startDate, daysPrior);
+
     let updatedSubscription = await Subscription.findByIdAndUpdate(subID,
         {
             subscriptionType: subscriptionType,
@@ -32,7 +34,16 @@ async function editSubscription(sub) {
             reminderDate: convertedDates.notifyBy
         }, { new: true })
 
-    return updatedSubscription
+    let updatedAppointment = await Appointment.findOneAndUpdate({subscriptionId: subID},
+        {
+            daysPrior: daysPrior,
+            time: new Date(convertedDates.notifyBy * 1000)
+        }, { new: true })
+
+    return {
+        updatedSubscription: updatedSubscription,
+        updatedAppointment: updatedAppointment
+    }
 }
 
 

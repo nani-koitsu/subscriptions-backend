@@ -77,9 +77,12 @@ module.exports = {
   },
   editUserSubscription: async (req, res) => {
     try {
-      let updatedSubscription = await subHelper.editSubscription(req.body)
+      let updateAppAndSub = await subHelper.editSubscription(req.body)
       // console.log('Line 72 Updated Subscription', updatedSubscription)
-      res.status(200).json(updatedSubscription)
+      res.status(200).json({
+        updatedSubscription:updateAppAndSub.updatedSubscription,
+        updatedAppointment: updateAppAndSub.updatedAppointment
+      })
 
     } catch (error) {
       console.log(error);
