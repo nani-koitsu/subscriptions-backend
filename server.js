@@ -62,7 +62,6 @@ app.listen(PORT, () => console.log(`
 Listening on port: ${PORT}
 Environment: ${process.env.NODE_ENV}
 Server Host: ${SERVER_HOST}
-Client Host: ${CLIENT_HOST}
 ==================================
 `));
 

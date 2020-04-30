@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const passport = require('passport')
-const { CLIENT_HOST } = require('../config')
+require('dotenv').config()
+
 
 
 require('../lib/google-passport')
@@ -15,7 +16,7 @@ router.get(
   (req, res) => {
     console.log('Google JWT', req.user)
     let jwtToken = req.user;
-    res.redirect(`${CLIENT_HOST}/google/?token=${jwtToken}`)
+    res.redirect(`/google/?token=${jwtToken}`)
   }
 );
 
