@@ -1,12 +1,12 @@
 const Subscription = require('../models/Subscription');
 
-async function createSubscription(sub) {
+function createSubscription(sub) {
     //deconstruct obj into the various methods
     let { startDate, subscriptionName, subscriptionType, price, picture, daysPrior, submittedBy } = sub
     //calls dateConverter function and awaits its completion
-    let convertedDates = await dateConverter(startDate, daysPrior);
+    let convertedDates = dateConverter(startDate, daysPrior);
 
-    let newSubscription = await new Subscription({
+    let newSubscription = new Subscription({
         subscriptionType: subscriptionType,
         subscriptionName: subscriptionName,
         price: price,
@@ -22,7 +22,7 @@ async function createSubscription(sub) {
 
 async function editSubscription(sub) {
     let { startDate, price, subscriptionType, subID, daysPrior } = sub
-    let convertedDates = await dateConverter(startDate, daysPrior);
+    let convertedDates = dateConverter(startDate, daysPrior);
     let updatedSubscription = await Subscription.findByIdAndUpdate(subID,
         {
             subscriptionType: subscriptionType,

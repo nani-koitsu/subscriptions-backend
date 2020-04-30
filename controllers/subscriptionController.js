@@ -1,14 +1,13 @@
 const User = require("../models/User");
 const Subscription = require("../models/Subscription");
+const Appointment = require('../models/Appointment');
 const subHelper = require('../utils/subHelper');
 
 module.exports = {
   addSubscription: async (req, res) => {
-    // let date = req.body.startDate;
-    // let convertedDate = parseInt((new Date(date).getTime() / 1000).toFixed(0));
     try {
       let foundUser = await User.findById(req.body.submittedBy);
-      let newSubscription = await subHelper.createSubscription(req.body)
+      let newSubscription = subHelper.createSubscription(req.body)
       let savedSubscription = await newSubscription.save();
       // console.log("saved sub", savedSubscription);
 
@@ -33,10 +32,31 @@ module.exports = {
     }
   },
   deleteByID: async (req, res) => {
-    const id = req.params.id;
     try {
-      let deletedByID = await Subscription.findByIdAndRemove(id);
-      res.status(200).json(deletedByID);
+      let foundUser = await User.findById(req.body.submittedBy);
+      let foundAppointment = await Appointment.findOne({subscriptionId: req.body.subID});
+      
+      let deletedApp = await Appointment.findByIdAndRemove(foundAppointment._id)
+      let deletedSub = await Subscription.findByIdAndRemove(req.body.subID);
+
+      let newSubArray = await foundUser.subscriptions.filter(item => {
+        return req.body.subID !== item._id.toString()
+      })
+      
+      foundUser.subscriptions = newSubArray;
+
+      let newAppArray = await foundUser.appointments.filter(item => {
+        return foundAppointment._id.toString() !== item._id.toString()
+      })
+
+      foundUser.appointments = newAppArray;
+      
+      await foundUser.save()
+
+      res.status(200).json({
+        deletedSub: deletedSub,
+        deletedApp: deletedApp
+      });
     } catch (error) {
       console.log(error);
       res.status(500).json(error);

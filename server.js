@@ -5,9 +5,9 @@ const passport = require("passport");
 const cors = require("cors");
 const app = express();
 const morgan = require("morgan");
-const path = require('path')
-const { CLIENT_HOST, SERVER_HOST } = require('./config')
-
+const path = require('path');
+const { CLIENT_HOST, SERVER_HOST } = require('./config');
+const scheduler = require('./scheduler');
 
 /*
   MongoDB connection
@@ -76,5 +76,7 @@ Client Host: ${CLIENT_HOST}
 http.createServer(app).listen(1337, () => {
   console.log("Twilio Server listening on port 1337");
 });
+
+// scheduler.start();
 
 module.exports = app;

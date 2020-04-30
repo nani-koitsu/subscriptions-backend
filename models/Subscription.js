@@ -13,7 +13,7 @@ const SubscriptionSchema = new Schema({
   reminderDate: { type: Number, default: '' },
   submittedBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "User"
   },
   timestamp: {
     type: String,

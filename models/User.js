@@ -49,6 +49,9 @@ const UserSchema = new Schema({
   subscriptions: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Subscription", default: "" },
   ],
+  appointments: [
+    { type: mongoose.Schema.Types.ObjectId, ref: 'Appointment', default: '' }
+  ],
   timestamp: {
     type: String,
     default: now.format("dddd, MMMM Do YYYY, h:mm:ss a"),
