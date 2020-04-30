@@ -32,11 +32,13 @@ app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 /*
 Routes
 */
 
+app.use("/api/", require("./routes/index"));
 app.use("/api/auth", require("./routes/google"));
 app.use("/api/users", require("./routes/users"));
 app.use("/api/twilio", require("./routes/twilio"));
@@ -44,11 +46,6 @@ app.use("/api/cloudinary", require("./routes/cloudinary"));
 app.use("/api/subscription", require("./routes/subscription"));
 
 
-/*
-Serve Static files in production
-*/
-
-// app.use(express.static(path.join(__dirname, 'public')));
 
 
 /*
