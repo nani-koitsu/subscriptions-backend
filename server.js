@@ -77,6 +77,6 @@ http.createServer(app).listen(1337, () => {
   console.log("Twilio Server listening on port 1337");
 });
 
-// scheduler.start();
+scheduler.start();
 
 module.exports = app;

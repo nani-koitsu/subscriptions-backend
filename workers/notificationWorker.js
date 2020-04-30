@@ -1,11 +1,11 @@
-const Appointment = require('../models/Appointment');
+const twilioController = require('../controllers/twilioController');
 
 const notificationWorkerFactory = function () {
-    // return {
-    //     run: function () {
-    //         Appointment.sendNotifications();
-    //     },
-    // };
+    return {
+        run: function () {
+            twilioController.twilioSendMsg()
+        },
+    };
 };
 
 module.exports = notificationWorkerFactory();

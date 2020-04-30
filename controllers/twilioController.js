@@ -7,25 +7,31 @@ const authToken = TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
 const Appointment = require('../models/Appointment');
 const User = require('../models/User');
+const moment = require('moment');
 
 module.exports = {
-  twilioSendMsg: async (req, res) => {
+  twilioSendMsg: async () => {
+    let searchDate = moment.utc().format();
+    
     try {
-      await client.messages
-        .create({
-          body: "💦",
-          from: TWILIO_PHONE_NUMBER,
-          to: "+19136090226"
+      let appointmentArray = await Appointment.find({time: searchDate});
+      
+      if(appointmentArray.length > 0) {
+        appointmentArray.forEach(async (appointment) => {
+          let foundUser = await User.findById({_id: appointment.submittedBy})
+
+          await client.messages.create({
+            body: `Hey ${foundUser.firstName}! Your subscription for ${appointment.name} is due in ${appointment.daysPrior} days.`,
+            from: TWILIO_PHONE_NUMBER,
+            to: `+1${appointment.phone}`
+          })
         })
-        .then(message => console.log(message));
-      res.status(200).send("notification has been sent");
+      }
     } catch (error) {
       console.log(error);
-      res.status(500).send("notification failed to deliver");
     }
   },
   createAppointment: async (req, res) => {
-    console.log(req.body.daysPrior)
     try {
       let foundUser = await User.findById(req.body.submittedBy);
       let newAppointment = new Appointment({
@@ -45,3 +51,14 @@ module.exports = {
     } 
   }
 };
+
+//dueDate - may 1st
+//appointment sends april 30th
+
+//dueDate - june 1st
+//apointment sends may 31st
+
+
+
+
+
